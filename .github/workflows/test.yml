@@ -31,14 +31,30 @@ jobs:
           reporter: java-junit
           fail-on-error: true
 
-      - name: send false message
-        uses: appleboy/telegram-action@master
+      - name: Parse Test Results
         if: failure()
+        run: |
+          mkdir -p test-failures
+          for file in $(find . -path "./build/test-results/test/TEST-*.xml"); do
+            if grep -q '<failure' "$file"; then
+              suite=$(basename "$file" .xml)
+              failed_tests=$(xmllint --xpath '//testcase[failure]' "$file" | grep -oP '(?<=name=")[^"]+')
+              for test in $failed_tests; do
+                echo "$suite: $test" >> test-failures/failed_tests.txt
+              done
+            fi
+          done
+
+      - name: Send Failure Message
+        if: failure()
+        uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-              Тесты не пройдены. (Тесты были запущены в автоматическом режиме)
+            Тесты не пройдены. (Тесты были запущены в автоматическом режиме)
+            Не пройдены следующие тесты:
+            ${{ steps.parse-test-results.outputs.failed_tests }}
       - name: send true message
         uses: appleboy/telegram-action@master
         if: success()
