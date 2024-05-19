@@ -1,8 +1,8 @@
 <h1 align="center"> ТЗ2 </h1>
 <hr>
 
-![auto_tests](https://github.com/DaniilStelmak/tz2/actions/workflows/test.yml/badge.svg)
-![manual_tests](https://github.com/DaniilStelmak/tz2/actions/workflows/tests_by_hand.yml/badge.svg)
+![auto_tests](https://github.com/DaniilStelmak/tz2/actions/workflows/auto_tests.yml/badge.svg)
+![manual_tests](https://github.com/DaniilStelmak/tz2/actions/workflows/manual_tests.yml/badge.svg)
 <hr>
         <p> Файл 'input.txt' располагается в директории src. </p>
         <p> Целые числа в файле записаны в одной строке, друг от друга отделены пробелами. 
