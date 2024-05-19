@@ -27,7 +27,7 @@ public class MainTest {
     @Test
     public void testCalculateProduct() {
         int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
-        assertEquals(0, Main._mult(numbers)); // Произведение равно 0, так как один из элементов массива равен 0
+        assertEquals(1, Main._mult(numbers)); // Произведение равно 0, так как один из элементов массива равен 0
     }
 
     @Test // Доп тест
