@@ -1,9 +1,6 @@
 package org.example.auto_test;
-
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,34 +8,33 @@ public class MainTest {
 
     @Test
     public void testFindMin() {
-        int[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
-        assertEquals(1, Main._min(numbers));
+        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
+        assertEquals(-2, Main._min(numbers));
     }
 
     @Test
     public void testFindMax() {
-        int[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
-        assertEquals(9, Main._max(numbers));
+        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
+        assertEquals(10, Main._max(numbers));
     }
 
     @Test
     public void testCalculateSum() {
-        int[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
-        assertEquals(39, Main._sum(numbers));
+        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
+        assertEquals(40, Main._sum(numbers));
     }
 
     @Test
     public void testCalculateProduct() {
-        int[] numbers = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3};
-        assertEquals(97200, Main._mult(numbers));
+        int[] numbers = {7, 0, 8, -2, 3, 10, 5, 6, -1, 4};
+        assertEquals(0, Main._mult(numbers)); // Произведение равно 0, так как один из элементов массива равен 0
     }
 
-    @Test // Тест по моему усмотрению :)
+    @Test // Доп тест
     public void testSingleNumberFile() {
         String fileName = "single_number.txt";
         int expectedNumber = 42;
 
-        // Генерируем файл с единственным числом
         try {
             FileWriter writer = new FileWriter(fileName);
             writer.write(String.valueOf(expectedNumber));
@@ -47,7 +43,6 @@ public class MainTest {
             fail("Failed to write number to file");
         }
 
-        // Проверяем, что программа корректно обрабатывает файл с одним числом
         try {
             String[] arg = {"single_number.txt"};
             Main.main(arg);
@@ -57,7 +52,7 @@ public class MainTest {
 
     @Test
     public void testPerformance() {
-        // Генерируем файл с большим количеством чисел
+
         String fileName = "input.txt";
         int numCount = 1000000;
         try {
@@ -70,11 +65,10 @@ public class MainTest {
             fail("Failed to write numbers to file");
         }
 
-        // Замеряем время выполнения для файла с большим количеством чисел
         long startTime = System.currentTimeMillis();
         try {
             String[] arg = {"input.txt"};
-            Main.callMainWithArguments(arg);
+            Main.main(arg);
         } catch (Exception e) {
             fail("Exception occurred during execution: " + e.getMessage());
         }
@@ -82,7 +76,6 @@ public class MainTest {
         long duration = endTime - startTime;
         System.out.println("Время выполнения для " + numCount + " чисел: " + duration + " мс");
 
-        // Проверяем, что время выполнения не превышает разумных пределов
-        assertTrue(duration < 1000); // Проверяем, что время выполнения меньше 1 секунды
+        assertTrue(duration < 1000);
     }
 }

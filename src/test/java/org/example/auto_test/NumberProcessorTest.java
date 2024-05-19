@@ -18,15 +18,11 @@ import java.awt.*;
 
 public class NumberProcessorTest {
 
-    // Тест проверяет зависимость времени выполнения от количества чисел в файле
     @Test
     public void testPerformance() {
-        // Создаем коллекцию для хранения данных о времени выполнения и количестве чисел в файле
         XYSeries series = new XYSeries("Время выполнения");
 
-        // Попробуем разные значения количества чисел в файле
         for (int numCount = 1000; numCount <= 1000000; numCount += 100000) {
-            // Генерируем файл с заданным количеством чисел
             String fileName = "numbers_" + numCount + ".txt";
             try {
                 FileWriter writer = new FileWriter(fileName);
@@ -37,8 +33,6 @@ public class NumberProcessorTest {
             } catch (IOException e) {
                 fail("Failed to write numbers to file");
             }
-
-            // Измеряем время выполнения
             long startTime = System.currentTimeMillis();
             try {
                 String[] arg = {fileName};
@@ -49,18 +43,15 @@ public class NumberProcessorTest {
             long endTime = System.currentTimeMillis();
             long duration = endTime - startTime;
 
-            // Добавляем данные в коллекцию
             series.add(numCount, duration);
         }
 
-        // Создаем коллекцию данных для построения графика
         XYSeriesCollection dataset = new XYSeriesCollection(series);
         JFreeChart chart = ChartFactory.createXYLineChart(
                 "Зависимость времени выполнения от количества чисел в файле",
                 "Количество чисел в файле", "Время выполнения (мс)",
                 dataset);
 
-        // Отображаем график на экране
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("График");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,9 +63,8 @@ public class NumberProcessorTest {
             frame.setVisible(true);
         });
 
-        // Ждем 60 секунд перед завершением теста, чтобы пользователь мог увидеть график (время изменено для CI)
         try {
-            Thread.sleep(1);
+            Thread.sleep(1); // Изменить при желании увидеть график (Например 60000)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

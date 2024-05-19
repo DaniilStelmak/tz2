@@ -26,11 +26,6 @@ public class Main {
         }
     }
 
-    // Метод для вызова main с аргументами
-    public static void callMainWithArguments(String[] args) {
-        main(args);
-    }
-
     private static int[] readNumbersFromFile(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line = reader.readLine();
